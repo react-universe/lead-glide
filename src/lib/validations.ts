@@ -27,11 +27,7 @@ export const signUpSchema = z.object({
     .string()
     .min(1, 'Password is required')
     .min(6, 'Password must be at least 6 characters')
-    .max(100, 'Password must not exceed 100 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one lowercase letter, one uppercase letter, and one number'
-    ),
+    .max(100, 'Password must not exceed 100 characters'),
 });
 
 // Prospect validation schema
@@ -82,11 +78,7 @@ export const resetPasswordSchema = z.object({
     .string()
     .min(1, 'Password is required')
     .min(6, 'Password must be at least 6 characters')
-    .max(100, 'Password must not exceed 100 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one lowercase letter, one uppercase letter, and one number'
-    ),
+    .max(100, 'Password must not exceed 100 characters'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -101,11 +93,7 @@ export const changePasswordSchema = z.object({
     .string()
     .min(1, 'New password is required')
     .min(6, 'Password must be at least 6 characters')
-    .max(100, 'Password must not exceed 100 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one lowercase letter, one uppercase letter, and one number'
-    ),
+    .max(100, 'Password must not exceed 100 characters'),
   confirmPassword: z.string(),
 }).refine((data) => data.newPassword === data.confirmPassword, {
   message: "Passwords don't match",
