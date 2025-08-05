@@ -131,13 +131,16 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
                         international
                         countryCallingCodeEditable={false}
                         defaultCountry="US"
-                        value={field.value}
-                        onChange={field.onChange}
+                        value={field.value || ''}
+                        onChange={(value) => {
+                          // Ensure we always pass a string, even if undefined
+                          field.onChange(value || '');
+                        }}
                         className="phone-input"
                         placeholder="Enter phone number"
-                        smartCaret={true}
-                        useNationalFormatForDefaultCountryValue={true}
-                        maxLength={20}
+                        smartCaret={false}
+                        useNationalFormatForDefaultCountryValue={false}
+                        limitMaxLength={true}
                       />
                     </div>
                   </FormControl>
