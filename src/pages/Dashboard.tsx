@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useProspects, Prospect } from '@/hooks/useProspects';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ProspectCard from '@/components/ProspectCard';
 import ProspectForm from '@/components/ProspectForm';
 import MetricsDashboard from '@/components/MetricsDashboard';
-import { Plus, Users, LogOut, BarChart3, Kanban } from 'lucide-react';
+import { Plus, Users, LogOut, BarChart3, Kanban, User } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
@@ -94,6 +95,18 @@ const Dashboard = () => {
                 </Button>
               </div>
               <div className="sm:hidden">
+                <Link to="/profile">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="px-2"
+                    title="Profile"
+                  >
+                    <User className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="sm:hidden">
                 <Button 
                   variant="outline" 
                   onClick={signOut}
@@ -111,6 +124,12 @@ const Dashboard = () => {
                   <Plus className="mr-2 h-4 w-4" />
                   Add Prospect
                 </Button>
+                <Link to="/profile">
+                  <Button variant="outline">
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </Button>
+                </Link>
                 <Button variant="outline" onClick={signOut}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign Out

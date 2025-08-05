@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/hooks/useAuth';
@@ -128,6 +128,11 @@ const Auth = () => {
                     >
                       {isLoading ? "Signing in..." : "Sign In"}
                     </Button>
+                    <div className="text-center mt-4">
+                      <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                        Forgot your password?
+                      </Link>
+                    </div>
                   </form>
                 </Form>
               </TabsContent>
