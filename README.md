@@ -1,5 +1,19 @@
 # Welcome to your Lovable project
 
+## Bug Fix Report
+
+### Fixed Issues
+
+**Password Validation Inconsistency**
+- **Issue**: Complex password validation (requiring lowercase, uppercase, and number) was inconsistent across different forms
+- **Fix**: Simplified all password validations to require minimum 6 characters for consistency across sign-up, reset password, and change password flows
+- **Files Modified**: `src/lib/validations.ts`
+
+**Profile Header Mobile Responsiveness**
+- **Issue**: Profile page header was not properly responsive on mobile devices
+- **Fix**: Adjusted layout structure and spacing for better mobile display
+- **Files Modified**: `src/pages/Profile.tsx`
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/b906af23-e412-471d-9a98-adc696762e91
