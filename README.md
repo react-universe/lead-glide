@@ -1,8 +1,11 @@
-# Welcome to your Lovable project
-
 ## Bug Fix Report & Feature Additions
 
 ### Authentication & Password Management
+
+
+**Navigation Enhancements**
+- **Enhancement**: Added "Forgot Password?" link on auth page and "Profile" link in dashboard
+- **Files Modified**: `src/pages/Auth.tsx`, `src/pages/Dashboard.tsx`
 
 **Forgot Password Implementation**
 - **Feature**: Added complete forgot password functionality
@@ -31,7 +34,7 @@
   - **Sign-in Form**: Added email format validation and password minimum length validation
   - **Sign-up Form**: Added full name requirement, email format validation, and password strength validation
   - **Prospect Form**: Added validation for name, email, phone number, company, stage selection, and notes
-  
+
 - **Validation Features**:
   - Real-time field validation with error messages
   - Form submission prevention until all fields are valid
@@ -66,12 +69,12 @@
 
 **Profile Header Mobile Responsiveness**
 - **Issue**: Profile page header layout broken on mobile devices
-- **Fix**: Improved responsive design with better spacing and layout structure
-- **Files Modified**: `src/pages/Profile.tsx`
+- **Fix**: Improved responsive design with by showing only icons for mobile devices
 
-**Navigation Enhancements**
-- **Enhancement**: Added "Forgot Password?" link on auth page and "Profile" link in dashboard
-- **Files Modified**: `src/pages/Auth.tsx`, `src/pages/Dashboard.tsx`
+**Dashboard Header Mobile Responsiveness**
+- **Issue**: Horizontal scroll shown because of Add prospect, profile and signout buttons
+- **Fix**: Improved responsive design with better 
+- **Files Modified**: `src/pages/Profile.tsx`
 
 ### Routing & Protected Routes
 
@@ -104,10 +107,10 @@ Follow these steps:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/react-universe/lead-glide.git
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd lead-glide
 
 # Step 3: Install the necessary dependencies.
 npm i
