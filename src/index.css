@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Phone input styling */
+.phone-input-container .PhoneInput {
+  display: flex;
+  align-items: center;
+}
+
+.phone-input-container .PhoneInputInput {
+  flex: 1;
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  background-color: hsl(var(--background));
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(var(--foreground));
+  transition: border-color 0.2s;
+}
+
+.phone-input-container .PhoneInputInput:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+}
+
+.phone-input-container .PhoneInputInput::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+.phone-input-container .PhoneInputCountrySelect {
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  background-color: hsl(var(--background));
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  color: hsl(var(--foreground));
+}
+
+.phone-input-container .PhoneInputCountrySelect:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+}
+
+.phone-input-container .PhoneInputCountryFlag {
+  margin-right: 0.5rem;
+}
+
 /* CRM Design System - Professional, modern, and conversion-focused */
 
 @layer base {

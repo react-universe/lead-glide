@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import { Prospect, PipelineStage } from '@/hooks/useProspects';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { prospectSchema, ProspectFormData } from '@/lib/validations';
 
 interface ProspectFormProps {
   open: boolean;
@@ -17,18 +22,22 @@ interface ProspectFormProps {
 
 const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: ProspectFormProps) => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    phone: '',
-    company: '',
-    stage: 'new' as PipelineStage,
-    notes: '',
+
+  const form = useForm<ProspectFormData>({
+    resolver: zodResolver(prospectSchema),
+    defaultValues: {
+      full_name: '',
+      email: '',
+      phone: '',
+      company: '',
+      stage: 'new',
+      notes: '',
+    },
   });
 
   useEffect(() => {
     if (prospect && mode === 'edit') {
-      setFormData({
+      form.reset({
         full_name: prospect.full_name,
         email: prospect.email,
         phone: prospect.phone || '',
@@ -37,7 +46,7 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
         notes: prospect.notes || '',
       });
     } else {
-      setFormData({
+      form.reset({
         full_name: '',
         email: '',
         phone: '',
@@ -46,24 +55,27 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
         notes: '',
       });
     }
-  }, [prospect, mode, open]);
+  }, [prospect, mode, open, form]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: ProspectFormData) => {
     setLoading(true);
-
     try {
-      await onSubmit(formData);
+      // Convert ProspectFormData to the expected type
+      const prospectData = {
+        full_name: data.full_name,
+        email: data.email,
+        phone: data.phone || null,
+        company: data.company || null,
+        stage: data.stage,
+        notes: data.notes || null,
+      };
+      await onSubmit(prospectData);
       onOpenChange(false);
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -75,85 +87,125 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="full_name">Full Name *</Label>
-            <Input
-              id="full_name"
-              value={formData.full_name}
-              onChange={(e) => handleInputChange('full_name', e.target.value)}
-              placeholder="Enter full name"
-              required
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="full_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter full name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email *</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
-              placeholder="Enter email address"
-              required
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter email address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone</Label>
-            <Input
-              id="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
-              placeholder="Enter phone number"
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone</FormLabel>
+                  <FormControl>
+                    <div className="phone-input-container">
+                      <PhoneInput
+                        international
+                        countryCallingCodeEditable={false}
+                        defaultCountry="US"
+                        value={field.value}
+                        onChange={field.onChange}
+                        className="phone-input"
+                        placeholder="Enter phone number"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="company">Company</Label>
-            <Input
-              id="company"
-              value={formData.company}
-              onChange={(e) => handleInputChange('company', e.target.value)}
-              placeholder="Enter company name"
+            <FormField
+              control={form.control}
+              name="company"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter company name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="stage">Pipeline Stage</Label>
-            <Select value={formData.stage} onValueChange={(value: PipelineStage) => handleInputChange('stage', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select stage" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="new">New</SelectItem>
-                <SelectItem value="in_talks">In Talks</SelectItem>
-                <SelectItem value="closed">Closed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
-            <Textarea
-              id="notes"
-              value={formData.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
-              placeholder="Add any additional notes..."
-              rows={3}
+            <FormField
+              control={form.control}
+              name="stage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Pipeline Stage</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select stage" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="new">New</SelectItem>
+                      <SelectItem value="in_talks">In Talks</SelectItem>
+                      <SelectItem value="closed">Closed</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className="flex gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
-              Cancel
-            </Button>
-            <Button type="submit" disabled={loading} className="flex-1">
-              {loading ? 'Saving...' : mode === 'create' ? 'Add Prospect' : 'Update Prospect'}
-            </Button>
-          </div>
-        </form>
+            <FormField
+              control={form.control}
+              name="notes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Notes</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Add any additional notes..."
+                      rows={3}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex gap-3 pt-4">
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading} className="flex-1">
+                {loading ? 'Saving...' : mode === 'create' ? 'Add Prospect' : 'Update Prospect'}
+              </Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
