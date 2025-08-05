@@ -133,6 +133,9 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
                         onChange={field.onChange}
                         className="phone-input"
                         placeholder="Enter phone number"
+                        smartCaret={true}
+                        useNationalFormatForDefaultCountryValue={true}
+                        maxLength={20}
                       />
                     </div>
                   </FormControl>

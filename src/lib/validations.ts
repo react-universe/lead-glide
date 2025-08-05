@@ -50,7 +50,11 @@ export const prospectSchema = z.object({
     .optional()
     .refine((phone) => {
       if (!phone || phone.trim() === '') return true;
-      return isValidPhoneNumber(phone);
+      try {
+        return isValidPhoneNumber(phone);
+      } catch {
+        return false;
+      }
     }, 'Please enter a valid phone number'),
   company: z
     .string()

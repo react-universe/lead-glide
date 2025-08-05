@@ -6,6 +6,7 @@
 .phone-input-container .PhoneInput {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .phone-input-container .PhoneInputInput {
@@ -18,6 +19,7 @@
   line-height: 1.25rem;
   color: hsl(var(--foreground));
   transition: border-color 0.2s;
+  height: 2.5rem;
 }
 
 .phone-input-container .PhoneInputInput:focus {
@@ -37,6 +39,9 @@
   margin-right: 0.5rem;
   padding: 0.5rem;
   color: hsl(var(--foreground));
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .phone-input-container .PhoneInputCountrySelect:focus {
@@ -47,6 +52,19 @@
 
 .phone-input-container .PhoneInputCountryFlag {
   margin-right: 0.5rem;
+  width: 1.5rem;
+  height: 1rem;
+}
+
+.phone-input-container .PhoneInputCountrySelectArrow {
+  margin-left: 0.25rem;
+  border-color: hsl(var(--muted-foreground)) transparent transparent transparent;
+}
+
+/* Ensure proper formatting display */
+.phone-input-container .PhoneInput--focus .PhoneInputInput {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
 }
 
 /* CRM Design System - Professional, modern, and conversion-focused */
