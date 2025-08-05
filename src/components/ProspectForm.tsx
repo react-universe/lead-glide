@@ -36,24 +36,26 @@ const ProspectForm = ({ open, onOpenChange, onSubmit, prospect, mode }: Prospect
   });
 
   useEffect(() => {
-    if (prospect && mode === 'edit') {
-      form.reset({
-        full_name: prospect.full_name,
-        email: prospect.email,
-        phone: prospect.phone || '',
-        company: prospect.company || '',
-        stage: prospect.stage,
-        notes: prospect.notes || '',
-      });
-    } else {
-      form.reset({
-        full_name: '',
-        email: '',
-        phone: '',
-        company: '',
-        stage: 'new',
-        notes: '',
-      });
+    if (open) {
+      if (prospect && mode === 'edit') {
+        form.reset({
+          full_name: prospect.full_name,
+          email: prospect.email,
+          phone: prospect.phone || '',
+          company: prospect.company || '',
+          stage: prospect.stage,
+          notes: prospect.notes || '',
+        });
+      } else {
+        form.reset({
+          full_name: '',
+          email: '',
+          phone: '',
+          company: '',
+          stage: 'new',
+          notes: '',
+        });
+      }
     }
   }, [prospect, mode, open, form]);
 
