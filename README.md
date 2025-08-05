@@ -31,7 +31,7 @@
   - **Sign-in Form**: Added email format validation and password minimum length validation
   - **Sign-up Form**: Added full name requirement, email format validation, and password strength validation
   - **Prospect Form**: Added validation for name, email, phone number, company, stage selection, and notes
-  - **Profile Forms**: Added validation for display name, bio, and avatar URL formats
+  
 - **Validation Features**:
   - Real-time field validation with error messages
   - Form submission prevention until all fields are valid
