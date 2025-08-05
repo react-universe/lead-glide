@@ -66,26 +66,56 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-white" />
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">LeadGlide CRM</h1>
-                <p className="text-sm text-muted-foreground">Welcome back, {user?.email}</p>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground truncate">LeadGlide CRM</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">
+                  Welcome back{user?.email && (
+                    <span className="hidden sm:inline">, {user.email}</span>
+                  )}
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Button onClick={handleAddProspect} className="shadow-sm">
-                <Plus className="mr-2 h-4 w-4" />
-                Add Prospect
-              </Button>
-              <Button variant="outline" onClick={signOut}>
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </Button>
+            <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+              {/* Mobile: Icon only buttons with tooltips */}
+              <div className="sm:hidden">
+                <Button 
+                  onClick={handleAddProspect} 
+                  size="sm" 
+                  className="shadow-sm px-2"
+                  title="Add Prospect"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="sm:hidden">
+                <Button 
+                  variant="outline" 
+                  onClick={signOut}
+                  size="sm"
+                  className="px-2"
+                  title="Sign Out"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              {/* Desktop: Full buttons with text */}
+              <div className="hidden sm:flex items-center gap-3">
+                <Button onClick={handleAddProspect} className="shadow-sm">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Prospect
+                </Button>
+                <Button variant="outline" onClick={signOut}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign Out
+                </Button>
+              </div>
             </div>
           </div>
         </div>
