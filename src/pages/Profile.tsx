@@ -77,21 +77,21 @@ const Profile = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <Button variant="ghost" size="sm">
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row sm:items-center sm:justify-between">
+            <Link to="/dashboard" className="self-start">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Dashboard
+                <span className="text-sm">Back to Dashboard</span>
               </Button>
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center flex-shrink-0">
+                <User className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">Profile Settings</h1>
-                <p className="text-sm text-muted-foreground">Manage your account information</p>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground">Profile Settings</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground">Manage your account information</p>
               </div>
             </div>
           </div>
